@@ -2,6 +2,11 @@
 				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 				xmlns:themes="using:Sy.Avalonia.Material.Themes"
 				x:Class="Sy.Avalonia.Material.Themes.MaterialTheme">
+
+	
+	<StyleInclude Source="avares://Sy.Avalonia.Material/Themes/Styles/MaterialControls.axaml" />
+	<StyleInclude Source="avares://Sy.Avalonia.Material/Themes/Styles/MaterialTypography.axaml" />
+	
 	<Styles.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -11,13 +16,12 @@
 			</ResourceDictionary.MergedDictionaries>
 			
 			<!-- These are removed and manually managed by the Theme -->
+
 			<ResourceInclude x:Key="DefaultSchemeTokensDark"
-											 Source="avares://Sy.Avalonia.Material/Themes/Tokens/default-scheme-dark.axaml" />
+			                 Source="avares://Sy.Avalonia.Material/Themes/Tokens/default-scheme-dark.axaml" />
 			<ResourceInclude x:Key="DefaultSchemeTokensLight"
-											 Source="avares://Sy.Avalonia.Material/Themes/Tokens/default-scheme-light.axaml" />
+			                 Source="avares://Sy.Avalonia.Material/Themes/Tokens/default-scheme-light.axaml" />
 		</ResourceDictionary>
 	</Styles.Resources>
 	
-	<StyleInclude Source="avares://Sy.Avalonia.Material/Themes/Styles/MaterialControls.axaml" />
-	<StyleInclude Source="avares://Sy.Avalonia.Material/Themes/Styles/MaterialTypography.axaml" />
 </Styles>

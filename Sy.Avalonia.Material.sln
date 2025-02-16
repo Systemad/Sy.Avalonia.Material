@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaterialDemo.Desktop", "sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sy.Avalonia.Material", "src\Sy.Avalonia.Material\Sy.Avalonia.Material.csproj", "{FC6D9E48-4638-437E-B176-40087876CA03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialColorUtilities", "src\MaterialColorUtilities\MaterialColorUtilities\MaterialColorUtilities.csproj", "{FC69572A-DBB3-408A-8CE0-44A614B9A348}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FC6D9E48-4638-437E-B176-40087876CA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC6D9E48-4638-437E-B176-40087876CA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC6D9E48-4638-437E-B176-40087876CA03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC69572A-DBB3-408A-8CE0-44A614B9A348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC69572A-DBB3-408A-8CE0-44A614B9A348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC69572A-DBB3-408A-8CE0-44A614B9A348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC69572A-DBB3-408A-8CE0-44A614B9A348}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{F65AF538-32D1-40CC-B2F7-001022589DF0} = {C766AE78-0638-400F-AE6E-F1EC7967EE9A}
 		{BFFC533A-448F-4845-BB0E-C4E57A6FBFD8} = {C766AE78-0638-400F-AE6E-F1EC7967EE9A}
 		{FC6D9E48-4638-437E-B176-40087876CA03} = {A6DC1A1B-930E-42C3-89C1-F3B3BC19D75D}
+		{FC69572A-DBB3-408A-8CE0-44A614B9A348} = {A6DC1A1B-930E-42C3-89C1-F3B3BC19D75D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F337B23C-2077-4814-B07B-93FD177060D9}

@@ -30,4 +30,8 @@
     <Folder Include="Markup\Converters\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MaterialColorUtilities\MaterialColorUtilities\MaterialColorUtilities.csproj" />
+  </ItemGroup>
+
 </Project>

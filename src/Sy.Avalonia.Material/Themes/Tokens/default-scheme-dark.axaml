@@ -1,7 +1,9 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Color x:Key="md.sys.color.primary">#D3BCFD</Color>
+	<!--
 	<Color x:Key="md.sys.color.surface-tint">#D3BCFD</Color>
+	-->
 	<Color x:Key="md.sys.color.on-primary">#38265C</Color>
 	<Color x:Key="md.sys.color.primary-container">#4F3D74</Color>
 	<Color x:Key="md.sys.color.on-primary-container">#EBDDFF</Color>
@@ -26,7 +28,9 @@
 	<Color x:Key="md.sys.color.outline">#948F99</Color>
 	<Color x:Key="md.sys.color.outline-variant">#49454E</Color>
 	<Color x:Key="md.sys.color.shadow">#000000</Color>
+	<!--
 	<Color x:Key="md.sys.color.scrim">#000000</Color>
+	-->
 	<Color x:Key="md.sys.color.inverse-surface">#E7E0E8</Color>
 	<Color x:Key="md.sys.color.inverse-on-surface">#322F35</Color>
 	<Color x:Key="md.sys.color.inverse-primary">#68548E</Color>
@@ -80,6 +84,7 @@
 	<SolidColorBrush x:Key="md.sys.brush.inverse-surface" Color="{StaticResource md.sys.color.inverse-surface}" />
 	<SolidColorBrush x:Key="md.sys.brush.inverse-on-surface" Color="{StaticResource md.sys.color.inverse-on-surface}" />
 	<SolidColorBrush x:Key="md.sys.brush.inverse-primary" Color="{StaticResource md.sys.color.inverse-primary}" />
+	<!--
 	<SolidColorBrush x:Key="md.sys.brush.primary-fixed" Color="{StaticResource md.sys.color.primary-fixed}" />
 	<SolidColorBrush x:Key="md.sys.brush.on-primary-fixed" Color="{StaticResource md.sys.color.on-primary-fixed}" />
 	<SolidColorBrush x:Key="md.sys.brush.primary-fixed-dim" Color="{StaticResource md.sys.color.primary-fixed-dim}" />
@@ -92,6 +97,7 @@
 	<SolidColorBrush x:Key="md.sys.brush.on-tertiary-fixed" Color="{StaticResource md.sys.color.on-tertiary-fixed}" />
 	<SolidColorBrush x:Key="md.sys.brush.tertiary-fixed-dim" Color="{StaticResource md.sys.color.tertiary-fixed-dim}" />
 	<SolidColorBrush x:Key="md.sys.brush.on-tertiary-fixed-variant" Color="{StaticResource md.sys.color.on-tertiary-fixed-variant}" />
+	-->
 	<SolidColorBrush x:Key="md.sys.brush.surface-dim" Color="{StaticResource md.sys.color.surface-dim}" />
 	<SolidColorBrush x:Key="md.sys.brush.surface-bright" Color="{StaticResource md.sys.color.surface-bright}" />
 	<SolidColorBrush x:Key="md.sys.brush.surface-container-lowest" Color="{StaticResource md.sys.color.surface-container-lowest}" />

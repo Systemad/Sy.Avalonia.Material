@@ -1,7 +1,9 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Color x:Key="md.sys.color.primary">#68548E</Color>
+	<!-- Not needed? 
 	<Color x:Key="md.sys.color.surface-tint">#68548E</Color>
+	-->
 	<Color x:Key="md.sys.color.on-primary">#FFFFFF</Color>
 	<Color x:Key="md.sys.color.primary-container">#EBDDFF</Color>
 	<Color x:Key="md.sys.color.on-primary-container">#230F46</Color>
@@ -26,10 +28,14 @@
 	<Color x:Key="md.sys.color.outline">#7A757F</Color>
 	<Color x:Key="md.sys.color.outline-variant">#CBC4CF</Color>
 	<Color x:Key="md.sys.color.shadow">#000000</Color>
+	<!-- not need?
 	<Color x:Key="md.sys.color.scrim">#000000</Color>
+	-->
 	<Color x:Key="md.sys.color.inverse-surface">#322F35</Color>
 	<Color x:Key="md.sys.color.inverse-on-surface">#F5EFF7</Color>
+	
 	<Color x:Key="md.sys.color.inverse-primary">#D3BCFD</Color>
+	<!--
 	<Color x:Key="md.sys.color.primary-fixed">#EBDDFF</Color>
 	<Color x:Key="md.sys.color.on-primary-fixed">#230F46</Color>
 	<Color x:Key="md.sys.color.primary-fixed-dim">#D3BCFD</Color>
@@ -42,6 +48,7 @@
 	<Color x:Key="md.sys.color.on-tertiary-fixed">#31101B</Color>
 	<Color x:Key="md.sys.color.tertiary-fixed-dim">#F0B7C5</Color>
 	<Color x:Key="md.sys.color.on-tertiary-fixed-variant">#643B46</Color>
+	-->
 	<Color x:Key="md.sys.color.surface-dim">#DED8E0</Color>
 	<Color x:Key="md.sys.color.surface-bright">#FEF7FF</Color>
 	<Color x:Key="md.sys.color.surface-container-lowest">#FFFFFF</Color>
@@ -51,7 +58,9 @@
 	<Color x:Key="md.sys.color.surface-container-highest">#E7E0E8</Color>
 
 	<SolidColorBrush x:Key="md.sys.brush.primary" Color="{StaticResource md.sys.color.primary}" />
+	<!--
 	<SolidColorBrush x:Key="md.sys.brush.surface-tint" Color="{StaticResource md.sys.color.surface-tint}" />
+	-->
 	<SolidColorBrush x:Key="md.sys.brush.on-primary" Color="{StaticResource md.sys.color.on-primary}" />
 	<SolidColorBrush x:Key="md.sys.brush.primary-container" Color="{StaticResource md.sys.color.primary-container}" />
 	<SolidColorBrush x:Key="md.sys.brush.on-primary-container" Color="{StaticResource md.sys.color.on-primary-container}" />
@@ -76,10 +85,13 @@
 	<SolidColorBrush x:Key="md.sys.brush.outline" Color="{StaticResource md.sys.color.outline}" />
 	<SolidColorBrush x:Key="md.sys.brush.outline-variant" Color="{StaticResource md.sys.color.outline-variant}" />
 	<SolidColorBrush x:Key="md.sys.brush.shadow" Color="{StaticResource md.sys.color.shadow}" />
+	<!--
 	<SolidColorBrush x:Key="md.sys.brush.scrim" Color="{StaticResource md.sys.color.scrim}" />
+	-->
 	<SolidColorBrush x:Key="md.sys.brush.inverse-surface" Color="{StaticResource md.sys.color.inverse-surface}" />
 	<SolidColorBrush x:Key="md.sys.brush.inverse-on-surface" Color="{StaticResource md.sys.color.inverse-on-surface}" />
 	<SolidColorBrush x:Key="md.sys.brush.inverse-primary" Color="{StaticResource md.sys.color.inverse-primary}" />
+	<!--
 	<SolidColorBrush x:Key="md.sys.brush.primary-fixed" Color="{StaticResource md.sys.color.primary-fixed}" />
 	<SolidColorBrush x:Key="md.sys.brush.on-primary-fixed" Color="{StaticResource md.sys.color.on-primary-fixed}" />
 	<SolidColorBrush x:Key="md.sys.brush.primary-fixed-dim" Color="{StaticResource md.sys.color.primary-fixed-dim}" />
@@ -92,6 +104,7 @@
 	<SolidColorBrush x:Key="md.sys.brush.on-tertiary-fixed" Color="{StaticResource md.sys.color.on-tertiary-fixed}" />
 	<SolidColorBrush x:Key="md.sys.brush.tertiary-fixed-dim" Color="{StaticResource md.sys.color.tertiary-fixed-dim}" />
 	<SolidColorBrush x:Key="md.sys.brush.on-tertiary-fixed-variant" Color="{StaticResource md.sys.color.on-tertiary-fixed-variant}" />
+	-->
 	<SolidColorBrush x:Key="md.sys.brush.surface-dim" Color="{StaticResource md.sys.color.surface-dim}" />
 	<SolidColorBrush x:Key="md.sys.brush.surface-bright" Color="{StaticResource md.sys.color.surface-bright}" />
 	<SolidColorBrush x:Key="md.sys.brush.surface-container-lowest" Color="{StaticResource md.sys.color.surface-container-lowest}" />
