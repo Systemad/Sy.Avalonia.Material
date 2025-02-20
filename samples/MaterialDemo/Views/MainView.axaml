@@ -15,7 +15,7 @@
 
     <StackPanel Orientation="Horizontal" Spacing="16">
         <Button Command="{Binding ChangeThemeCommand}" Content="Label" Theme="{StaticResource MaterialFilledButton}" />
-        <Button Content="Label" Classes="debug-hover" Theme="{StaticResource MaterialFilledButton}" />
+        <Button Command="{Binding ChangeTheme2Command}" Content="Label" Classes="debug-hover" Theme="{StaticResource MaterialFilledButton}" />
         <Button Content="Label" Classes="debug-focus" Theme="{StaticResource MaterialFilledButton}" />
         <Button Content="Label" Classes="debug-pressed" Theme="{StaticResource MaterialFilledButton}" />
         <Button Content="Label" IsEnabled="False" Theme="{StaticResource MaterialFilledButton}" />

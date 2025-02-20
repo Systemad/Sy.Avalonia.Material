@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using CommunityToolkit.Mvvm.Input;
 using Sy.Avalonia.Material.Themes;
 
 namespace MaterialDemo.ViewModels;
@@ -17,6 +20,12 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     public void ChangeTheme()
     {
-        _theme.ChangeTheme2("ee0b5f");
+        _theme.ChangeTheme(Color.Parse("#00ff48"));
+    }
+    
+    [RelayCommand]
+    public void ChangeTheme2()
+    {
+        _theme.ChangeTheme(Color.Parse("#00f700"));
     }
 }

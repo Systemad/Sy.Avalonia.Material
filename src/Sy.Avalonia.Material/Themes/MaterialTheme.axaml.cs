@@ -3,17 +3,17 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using System.Diagnostics;
+using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using MaterialColorUtilities.Palettes;
 using MaterialColorUtilities.Schemes;
+using MaterialColorUtilities.Utils;
+using Sy.Avalonia.Material.Utils;
 using Style = MaterialColorUtilities.Palettes.Style;
 
 namespace Sy.Avalonia.Material.Themes;
 
-public static class ColorExt
-{
-    public static Color ParseColor(this string hex) => Color.Parse(hex);
-}
+
 
 public partial class MaterialTheme : Styles, IResourceNode
 {
@@ -25,23 +25,19 @@ public partial class MaterialTheme : Styles, IResourceNode
     private readonly ResourceDictionary _defaultSchemeLight;
 
     private CorePalette _corePalette = CorePalette.Of(11);
-    Scheme<uint> _lightScheme;
-    Scheme<uint> _darkScheme; // = new LightSchemeMapper().Map(_corePalette);
+
     private Style _style = Style.Vibrant;
 
+    public Action<Scheme<uint>>? OnColorThemeChanged { get; set; }
+    public Action<ThemeVariant>? OnBaseThemeChanged { get; set; }
 
     public MaterialTheme()
     {
         AvaloniaXamlLoader.Load(this);
         _app = Application.Current!;
+        _app.ActualThemeVariantChanged += (_, e) => OnBaseThemeChanged?.Invoke(_app.ActualThemeVariant);
         _defaultSchemeDark = GetAndRemove<ResourceDictionary>("DefaultSchemeTokensDark");
         _defaultSchemeLight = GetAndRemove<ResourceDictionary>("DefaultSchemeTokensLight");
-
-        //lightScheme = new LightSchemeMapper().Map(_corePalette);
-        //darkScheme = new DarkSchemeMapper().Map(_corePalette);
-
-        //Scheme<string> lightSchemeString = lightScheme.Convert(x => "#" + x.ToString("X")[2..]);
-        //ChangeTheme(lightSchemeString);
     }
 
     public static MaterialTheme GetInstance() => GetInstance(Application.Current!);
@@ -71,134 +67,66 @@ public partial class MaterialTheme : Styles, IResourceNode
         return resources.TryGetValue(key, out value);
     }
 
-    public void ChangeTheme(string color)
+
+    public void ChangeTheme(Color seed)
     {
-        CorePalette corePalette = CorePalette.Of(11);
+        var hey = ColorUtils.ArgbFromRgb(seed.R, seed.G, seed.B);
+        ApplySchemes(hey);
+    }
+
+    public void SwitchBaseTheme()
+    {
+        if (Application.Current is null) return;
+        var newBase = Application.Current.ActualThemeVariant == ThemeVariant.Dark
+            ? ThemeVariant.Light
+            : ThemeVariant.Dark;
+        Application.Current.RequestedThemeVariant = newBase;
+    }
+
+    public void ApplySchemes(ResourceDictionary lightResourceDictionary, ResourceDictionary darkResourceDictionary)
+    {
+        Resources.Remove("DefaultSchemeTokensLight");
+        Resources.Remove("DefaultSchemeTokensDark");
+
+        Resources.MergedDictionaries.Add(lightResourceDictionary);
+        Resources.MergedDictionaries.Add(darkResourceDictionary);
+    }
+
+    private void ApplySchemes(uint seed)
+    {
+        /*
+        var newBase = Application.Current.ActualThemeVariant == ThemeVariant.Dark
+            ? ThemeVariant.Light
+            : ThemeVariant.Dark;
+        uint uintColor = Convert.ToUInt32(seed.Replace("#", ""), 16);
+        */
+        CorePalette corePalette = CorePalette.Of(seed /*0x0000FF 11 */);
         Scheme<uint> lightScheme = new LightSchemeMapper().Map(corePalette);
-        Scheme<string> lightSchemeString = lightScheme.Convert(x => "#" + x.ToString("X")[2..]);
-        ApplyTheme(lightSchemeString);
-    }
-    
-    public void ChangeTheme2(string color)
-    {
-        CorePalette corePalette = CorePalette.Of(11);
-        Scheme<uint> lightScheme = new LightSchemeMapper().Map(corePalette);
-        Scheme<string> lightSchemeString = lightScheme.Convert(x => "#" + x.ToString("X")[2..]);
-        ApplyTheme2(lightSchemeString);
-    }
+        Scheme<uint> darkScheme = new DarkSchemeMapper().Map(corePalette);
 
-    private void ApplyTheme2(Scheme<string> schemeString)
-    {
-        Scheme<uint> lightScheme;
-        var hey = _defaultSchemeLight["md.sys.color.primary"];
+        //Scheme<Color> lightSchemeColor = lightScheme.Convert(x => Color.FromArgb((byte)x));
+        //Scheme<string> lightSchemeString = lightScheme.Convert(x => "#" + x.ToString("X")[2..]);
+        //ChangeLightPalette(lightSchemeColor);
 
-        _defaultSchemeLight["md.sys.color.primary"] = schemeString.Primary.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-primary"] = schemeString.OnPrimary.ParseColor();
-        _defaultSchemeLight["md.sys.color.primary-container"] = schemeString.PrimaryContainer.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-primary-container"] = schemeString.OnPrimaryContainer.ParseColor();
+        //var scheme = newBase == ThemeVariant.Dark ? _defaultSchemeDark : _defaultSchemeLight;
 
-        _defaultSchemeLight["md.sys.color.secondary"] = schemeString.Secondary.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-secondary"] = schemeString.OnSecondary.ParseColor();
-        _defaultSchemeLight["md.sys.color.secondary-container"] = schemeString.SecondaryContainer.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-secondary-container"] = schemeString.OnSecondaryContainer.ParseColor();
+        var newLightRd = ResourceExtensionsExt.CreateResourceDictionary(lightScheme);
+        var newDarkRd = ResourceExtensionsExt.CreateResourceDictionary(darkScheme);
+        Resources.Remove("DefaultSchemeTokensLight");
+        Resources.Remove("DefaultSchemeTokensDark");
 
-        _defaultSchemeLight["md.sys.color.tertiary"] = schemeString.Tertiary.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-tertiary"] = schemeString.OnTertiary.ParseColor();
-        _defaultSchemeLight["md.sys.color.tertiary-container"] = schemeString.TertiaryContainer.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-tertiary-container"] = schemeString.OnTertiaryContainer.ParseColor();
+        /*
+        var newDict = new ResourceDictionary();
+        foreach (var kvp in scheme)
+        {
+            newDict.Add(kvp.Key, kvp.Value);
+        }
+        */
 
-        _defaultSchemeLight["md.sys.color.error"] = schemeString.OnError.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-error"] = schemeString.OnError.ParseColor();
-        _defaultSchemeLight["md.sys.color.error-container"] = schemeString.ErrorContainer.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-error-container"] = schemeString.OnErrorContainer.ParseColor();
-
-        _defaultSchemeLight["md.sys.color.background"] = schemeString.Background.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-background"] = schemeString.OnBackground.ParseColor();
-
-        _defaultSchemeLight["md.sys.color.surface"] = schemeString.Surface.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-surface"] = schemeString.OnSurface.ParseColor();
-
-        _defaultSchemeLight["md.sys.color.surface-variant"] = schemeString.SurfaceVariant.ParseColor();
-        _defaultSchemeLight["md.sys.color.on-surface-variant"] = schemeString.OnSurfaceVariant.ParseColor();
-
-        _defaultSchemeLight["md.sys.color.outline"] = schemeString.Outline.ParseColor();
-        _defaultSchemeLight["md.sys.color.outline-variant"] = schemeString.OutlineVariant.ParseColor();
-
-        _defaultSchemeLight["md.sys.color.shadow"] = schemeString.Shadow.ParseColor();
-
-        _defaultSchemeLight["md.sys.color.inverse-surface"] = schemeString.Surface.ParseColor();
-        _defaultSchemeLight["md.sys.color.inverse-on-surface"] = schemeString.OnSurface.ParseColor();
-
-        _defaultSchemeLight["md.sys.color.inverse-primary"] = schemeString.InversePrimary.ParseColor();
-
-        _defaultSchemeLight["md.sys.color.surface-dim"] = schemeString.SurfaceDim.ParseColor();
-        _defaultSchemeLight["md.sys.color.surface-bright"] = schemeString.SurfaceBright.ParseColor();
-        _defaultSchemeLight["md.sys.color.surface-container-low"] = schemeString.SurfaceContainerLow.ParseColor();
-        _defaultSchemeLight["md.sys.color.surface-container-lowest"] = schemeString.SurfaceContainerLowest.ParseColor();
-
-        _defaultSchemeLight["md.sys.color.surface-container"] = schemeString.SurfaceContainer.ParseColor();
-        _defaultSchemeLight["md.sys.color.surface-container-high"] = schemeString.SurfaceContainerHigh.ParseColor();
-        _defaultSchemeLight["md.sys.color.surface-container-highest"] =
-            schemeString.SurfaceContainerHighest.ParseColor();
-
-        var hey2 = _defaultSchemeLight["md.sys.color.primary"];
+        Resources.Add("DefaultSchemeTokensLight", newLightRd); //MergedDictionaries.Add(newLightRd);
+        Resources.MergedDictionaries.Add(newDarkRd);
     }
 
-    private void ApplyTheme(Scheme<string> schemeString)
-    {
-        Scheme<uint> lightScheme;
-        var hey = _app.Resources["md.sys.color.primary"];
-
-        _app.Resources["md.sys.color.primary"] = schemeString.Primary.ParseColor();
-        _app.Resources["md.sys.color.on-primary"] = schemeString.OnPrimary.ParseColor();
-        _app.Resources["md.sys.color.primary-container"] = schemeString.PrimaryContainer.ParseColor();
-        _app.Resources["md.sys.color.on-primary-container"] = schemeString.OnPrimaryContainer.ParseColor();
-
-        _app.Resources["md.sys.color.secondary"] = schemeString.Secondary.ParseColor();
-        _app.Resources["md.sys.color.on-secondary"] = schemeString.OnSecondary.ParseColor();
-        _app.Resources["md.sys.color.secondary-container"] = schemeString.SecondaryContainer.ParseColor();
-        _app.Resources["md.sys.color.on-secondary-container"] = schemeString.OnSecondaryContainer.ParseColor();
-
-        _app.Resources["md.sys.color.tertiary"] = schemeString.Tertiary.ParseColor();
-        _app.Resources["md.sys.color.on-tertiary"] = schemeString.OnTertiary.ParseColor();
-        _app.Resources["md.sys.color.tertiary-container"] = schemeString.TertiaryContainer.ParseColor();
-        _app.Resources["md.sys.color.on-tertiary-container"] = schemeString.OnTertiaryContainer.ParseColor();
-
-        _app.Resources["md.sys.color.error"] = schemeString.OnError.ParseColor();
-        _app.Resources["md.sys.color.on-error"] = schemeString.OnError.ParseColor();
-        _app.Resources["md.sys.color.error-container"] = schemeString.ErrorContainer.ParseColor();
-        _app.Resources["md.sys.color.on-error-container"] = schemeString.OnErrorContainer.ParseColor();
-
-        _app.Resources["md.sys.color.background"] = schemeString.Background.ParseColor();
-        _app.Resources["md.sys.color.on-background"] = schemeString.OnBackground.ParseColor();
-
-        _app.Resources["md.sys.color.surface"] = schemeString.Surface.ParseColor();
-        _app.Resources["md.sys.color.on-surface"] = schemeString.OnSurface.ParseColor();
-
-        _app.Resources["md.sys.color.surface-variant"] = schemeString.SurfaceVariant.ParseColor();
-        _app.Resources["md.sys.color.on-surface-variant"] = schemeString.OnSurfaceVariant.ParseColor();
-
-        _app.Resources["md.sys.color.outline"] = schemeString.Outline.ParseColor();
-        _app.Resources["md.sys.color.outline-variant"] = schemeString.OutlineVariant.ParseColor();
-
-        _app.Resources["md.sys.color.shadow"] = schemeString.Shadow.ParseColor();
-
-        _app.Resources["md.sys.color.inverse-surface"] = schemeString.Surface.ParseColor();
-        _app.Resources["md.sys.color.inverse-on-surface"] = schemeString.OnSurface.ParseColor();
-
-        _app.Resources["md.sys.color.inverse-primary"] = schemeString.InversePrimary.ParseColor();
-
-        _app.Resources["md.sys.color.surface-dim"] = schemeString.SurfaceDim.ParseColor();
-        _app.Resources["md.sys.color.surface-bright"] = schemeString.SurfaceBright.ParseColor();
-        _app.Resources["md.sys.color.surface-container-low"] = schemeString.SurfaceContainerLow.ParseColor();
-        _app.Resources["md.sys.color.surface-container-lowest"] = schemeString.SurfaceContainerLowest.ParseColor();
-
-        _app.Resources["md.sys.color.surface-container"] = schemeString.SurfaceContainer.ParseColor();
-        _app.Resources["md.sys.color.surface-container-high"] = schemeString.SurfaceContainerHigh.ParseColor();
-        _app.Resources["md.sys.color.surface-container-highest"] = schemeString.SurfaceContainerHighest.ParseColor();
-
-        var hey2 = _app.Resources["md.sys.color.primary"];
-    }
 
     private T GetAndRemove<T>(string key)
     {
@@ -224,8 +152,10 @@ public partial class MaterialTheme : Styles, IResourceNode
 
     private bool IsSupportedVariantKey(string variantKey)
     {
-        if (variantKey == "Light") return true;
-        if (variantKey == "Dark") return true;
-        return false;
+        return variantKey switch
+        {
+            "Light" or "Dark" => true,
+            _ => false
+        };
     }
 }
